@@ -66,7 +66,7 @@ class MateriaController{
             header("Location: index.php?action=index");
             exit;
         }
-        require __DIR__ . "/../views/materias/edit.php";
+        require __DIR__ . "/../views/materias/editarMateria.php";
     }
 
     public function update() {

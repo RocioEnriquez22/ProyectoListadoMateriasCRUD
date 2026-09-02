@@ -42,7 +42,8 @@ class MateriaModel{
     }
 
     public function getEstados() {
-        $stmt = $this->db->prepare("SELECT * FROM estado ORDER BY nombre ASC");
+        $stmt = $this->db->prepare("SELECT * FROM estado where activo=1 or nombre!='Eliminada'
+                                    order by nombre ASC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
