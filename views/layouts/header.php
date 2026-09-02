@@ -1,3 +1,9 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -47,6 +53,16 @@ button{
 </head>
 <body>
     <nav>
-        <a href="index.php?action=index">Listado</a>
+        <a href="index.php?action=index">Listado de Materias</a>
         <a href="index.php?action=create">Nuevo usuario</a>
+        <?php if (isset($_SESSION['usuario_id'])): ?>
+        <div class="user-panel">
+            👤 Hola, <strong><?= htmlspecialchars($_SESSION['usuario_nombre'] ?? 'Usuario') ?></strong> 
+            (<em><?= htmlspecialchars($_SESSION['usuario_rol'] ?? 'común') ?></em>)
+            
+            <!-- Botón de Cerrar Sesión (Visible para todo usuario logueado) -->
+            <a href="index.php?action=logout" class="btn-logout">Cerrar Sesión</a>
+        </div>
+    <?php endif; ?>
     </nav>
+    

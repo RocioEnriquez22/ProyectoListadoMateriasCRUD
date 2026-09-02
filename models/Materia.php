@@ -1,5 +1,7 @@
 <?php
-class Materia{
+
+class MateriaModel{
+
     private $db;
 
     public function __construct ($conexion){
@@ -37,6 +39,12 @@ class Materia{
         $stmt = $this->db->prepare($sql);
         
         return $stmt->execute([$nombre, $año, $idEstado, $id]);
+    }
+
+    public function getEstados() {
+        $stmt = $this->db->prepare("SELECT * FROM estado ORDER BY nombre ASC");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function deleteLogico($id) {
