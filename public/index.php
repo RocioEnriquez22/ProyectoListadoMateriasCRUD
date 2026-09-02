@@ -39,6 +39,15 @@ switch($action) {
     case 'delete':
         $materiaController->delete();break;
 
+    case 'users':
+        $authController->listUsers();
+        break;
+    case 'changeRole':
+        $authController->changeRole();
+
+    case 'deleteUser':
+        $authController->borrarUser();
+        break;
     default:
         header("Location: index.php?action=index");
         exit;

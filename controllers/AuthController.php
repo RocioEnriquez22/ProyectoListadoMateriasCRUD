@@ -99,26 +99,87 @@ class AuthController {
 
 
     //verificacion si el correo ya esta registrado 
-    $usuarioExistente = $this->userModel->findByEmail($email);
+        $usuarioExistente = $this->userModel->findByEmail($email);
 
-    if ($usuarioExistente) {
-        $error = "El correo electrónico ya está registrado.";
-        require __DIR__ . "/../views/auten/registro.php";
-        return;
+        if ($usuarioExistente) {
+            $error = "El correo electrónico ya está registrado.";
+            require __DIR__ . "/../views/auten/registro.php";
+            return;
+        }
+
+        // Guardar usuario llamando al modelo User (encripta automáticamente la clave)
+        $exito = $this->userModel->create($firstname, $lastname, $email, $password, $rol);
+
+        if ($exito) {
+            // Redirigir al login con mensaje exitoso
+            header("Location: index.php?action=login");
+            exit;
+        } else {
+            $error = "Ocurrió un error al registrar el usuario.";
+            require __DIR__ . "/../views/auten/registro.php";
+        }
     }
 
-    // Guardar usuario llamando al modelo User (encripta automáticamente la clave)
-    $exito = $this->userModel->create($firstname, $lastname, $email, $password, $rol);
+    private function requireLogin(){
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (!isset($_SESSION['usuario_id'])) {
+            header("Location: index.php?action=login");
+            exit;
+        }
+    }
 
-    if ($exito) {
-        // Redirigir al login con mensaje exitoso
-        header("Location: index.php?action=login");
+    private function requireAdmin(){
+        $this->requireLogin();
+        if($_SESSION['usuario_rol'] !=='admin'){
+            http_response_code(403);
+            die("Acceso no permitido: No tiene permisos de Administrador");
+        }   
+    }
+
+    //para mostrar el listado de user(solo al admin)
+    public function listUsers() {
+        $this->requireAdmin();
+        $usuarios = $this->userModel->getAllUsers();
+        require __DIR__ . "/../views/users/listaUsers.php"; // O la vista dentro de views/users/
+    }
+
+    //para el cambio de rol (Solo Admin)
+    public function changeRole() {
+        $this->requireAdmin();
+        $userId   = (int)($_POST['user_id'] ?? 0);
+        $nuevoRol = trim($_POST['rol'] ?? '');
+
+        // Impedimos que el administrador logueado se quite el rol a sí mismo por accidente
+        if ($userId === (int)$_SESSION['usuario_id']) {
+            header("Location: index.php?action=users&error=self_role");
+            exit;
+        }
+
+        if ($userId > 0 && ($nuevoRol === 'admin' || $nuevoRol === 'usuario')) {
+            $this->userModel->cambiaRolUser($userId, $nuevoRol);
+        }
+
+        header("Location: index.php?action=users");
         exit;
-    } else {
-        $error = "Ocurrió un error al registrar el usuario.";
-        require __DIR__ . "/../views/auten/registro.php";
     }
+
+    public function borrarUser(){
+        $this->requireAdmin();
+        $userId=(int)($_GET['id'] ?? 0);
+
+        if($userId === (int)$_SESSION['usuario_id']){
+            header("Location: index.php?action=users&error=self_delete");
+            exit;
+        }
+        if($userId>1){
+            $this->userModel->borrarUser($userId);
+        }
+        header("Location: index.php?action=users");
+        exit;
     }
+
 }
 
 

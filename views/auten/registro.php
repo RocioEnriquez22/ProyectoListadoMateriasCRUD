@@ -47,13 +47,7 @@
             <input type="password" id="password" name="password" required placeholder="••••••••">
         </div>
 
-        <div class="form-group">
-            <label for="rol">Tipo de Usuario (Rol):</label>
-            <select id="rol" name="rol" required>
-                <option value="usuario">Usuario Común (Solo Lectura)</option>
-                <option value="admin">Administrador (CRUD Completo)</option>
-            </select>
-        </div>
+       
 
         <button type="submit" class="btn-submit">Guardar Usuario</button>
     </form>

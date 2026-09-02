@@ -64,5 +64,13 @@ button{
             <a href="index.php?action=logout" class="btn-logout">Cerrar Sesión</a>
         </div>
     <?php endif; ?>
+    <?php if (isset($_SESSION['usuario_rol']) && $_SESSION['usuario_rol'] === 'admin'): ?>
+            <a href="index.php?action=users" style="background: #17a2b8; color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none; margin-left: 10px;">
+                👥 Administrar Users
+            </a>
+        <?php endif; ?>
+    </div>
+
+    
     </nav>
     
