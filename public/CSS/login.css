@@ -1,13 +1,15 @@
 
 body { 
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #f4f6f9;
+    background:linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
     display: flex; 
     justify-content: center; 
     align-items: center; 
     height: 100vh; 
     margin: 0;
 }
+
+
 .login-card { 
     background: #fff; 
     padding:1.8rem; 
@@ -136,5 +138,34 @@ h3{
     margin-top: 0; 
     text-align: center;
 }
-    
+body.body-header{
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+nav.navbar.bg-body-tertiary{
+    height: 15% !important;
+    background-color: #fff !important;
+     box-shadow: 0 4px 0.62rem rgba(0, 0, 0, 0.084);
+}
+li.nav-item{
+    padding-left: 2rem;
+    border-radius: .5rem !important;
+}
+a.nav-link{
+    border-radius: .5rem !important;
+    color: #000;
+    transition: background-color ease 1s;
+}
+a.nav-link:hover{
+    background-color: #aaaaaab4;
+    box-shadow: 0 4px 0.62rem rgba(0, 0, 0, 0.084);;
+}
+
+.navbar-collapse {
+    padding-left: 1.2rem !important;
+}
     

@@ -11,67 +11,35 @@ if (session_status() === PHP_SESSION_NONE) {
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>CRUD PHP - MVC</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-<style>
-body{
-    font-family:Arial,sans-serif;
-    max-width:1000px;
-    margin:40px auto;
-    padding:0 20px}
-nav{
-    margin-bottom:30px
-}
-nav a{
-    margin-right:15px
-}
-table{
-    width:100%;
-    border-collapse:collapse
-}
-th,td{
-    border:1px solid #ccc;
-    padding:10px;
-    text-align:left
-}
-form{
-    max-width:600px
-}
-label{
-    display:block;
-    margin-top:15px
-}
-input{
-    width:100%;
-    padding:8px;
-    box-sizing:border-box
-}
-button{
-    margin-top:20px;
-    padding:9px 15px
-}
-.actions a{
-    margin-right:10px}
-</style>
-</head>
-<body>
-    <nav>
-        <a href="index.php?action=index">Listado de Materias</a>
-        <a href="index.php?action=create">Nuevo usuario</a>
-        <?php if (isset($_SESSION['usuario_id'])): ?>
-        <div class="user-panel">
-            👤 Hola, <strong><?= htmlspecialchars($_SESSION['usuario_nombre'] ?? 'Usuario') ?></strong> 
+        <link rel="stylesheet" href="../CSS/login.css">
+    </head>
+<body class=body-header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <div>👤 Hola, <strong><?= htmlspecialchars($_SESSION['usuario_nombre'] ?? 'Usuario') ?></strong> 
             (<em><?= htmlspecialchars($_SESSION['usuario_rol'] ?? 'común') ?></em>)
-            
-            <!-- Botón de Cerrar Sesión (Visible para todo usuario logueado) -->
-            <a href="index.php?action=logout" class="btn-logout">Cerrar Sesión</a>
         </div>
-    <?php endif; ?>
-    <?php if (isset($_SESSION['usuario_rol']) && $_SESSION['usuario_rol'] === 'admin'): ?>
-            <a href="index.php?action=users" style="background: #17a2b8; color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none; margin-left: 10px;">
-                👥 Administrar Users
-            </a>
-        <?php endif; ?>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            
+            <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="index.php?action=index">Listado</a>
+            </li>
+            <?php if (isset($_SESSION['usuario_rol']) && $_SESSION['usuario_rol'] === 'admin'): ?>
+                <li class="nav-item">
+                <a class="nav-link" href="index.php?action=users">Administrar Users</a>
+                </li>
+            <?php endif; ?>
+            <li class="nav-item">
+            <a class="nav-link" href="index.php?action=logout">Cerrar Sesion</a>
+            </li>
+            
+        </ul>
+        </div>
     </div>
-
-    
     </nav>
+    
     
