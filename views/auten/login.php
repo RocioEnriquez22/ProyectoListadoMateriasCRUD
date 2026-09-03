@@ -15,6 +15,11 @@
     <h2>Iniciar Sesión</h2>
 
     <form action="index.php?action=doLogin" method="POST">
+        <?php if (isset($error)): ?>
+            <div class="error-msg">
+                <?= htmlspecialchars($error) ?>
+            </div>
+        <?php endif; ?>
         <div class="form-group">
             <label for="email">Correo Electrónico:</label>
             <input type="email" id="email" name="email" required placeholder="ejemplo@correo.com">

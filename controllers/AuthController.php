@@ -50,6 +50,9 @@ class AuthController {
             //Redirigir al listado principal de materias
             header("Location: index.php?action=index");
             exit;
+        }else if (!$usuario){
+            $error = "Correo no registrado.";
+            require __DIR__ . "/../views/auten/login.php";
         } else {
             // Credenciales inválidas
             $error = "El correo o la contraseña son incorrectos.";

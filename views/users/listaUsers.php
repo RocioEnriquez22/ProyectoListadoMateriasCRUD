@@ -1,6 +1,6 @@
 <?php require __DIR__ . "/../layouts/header.php"; ?>
 
-<div style="max-width: 900px; margin: 20px auto; font-family: Arial, sans-serif;">
+<div>
     <h2>Administración de Usuarios</h2>
 
     <?php if (isset($_GET['error']) && $_GET['error'] === 'self_role'): ?>
@@ -9,9 +9,9 @@
         </div>
     <?php endif; ?>
 
-    <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse; background: white;">
+    <table class="tabla-users table table-ligth table-striped" >
         <thead>
-            <tr style="background-color: #f2f2f2;">
+            <tr >
                 <th>ID</th>
                 <th>Nombre Completo</th>
                 <th>Correo Electrónico</th>
@@ -38,13 +38,12 @@
                                     <option value="usuario" <?= ($u['rol'] === 'usuario') ? 'selected' : '' ?>>Usuario Común</option>
                                     <option value="admin" <?= ($u['rol'] === 'admin') ? 'selected' : '' ?>>Administrador</option>
                                 </select>
-                                <button type="submit" style="background-color: #17a2b8; color: white; border: none; padding: 5px 10px; border-radius: 4px; font-weight: bold; cursor: pointer;">
+                                <button type="submit" class="btn-accion btn-editar" style="border:none">
                                     Guardar
                                 </button>
                                 <a href="index.php?action=deleteUser&id=<?= $u['id'] ?>" 
                                onclick="return confirm('¿Seguro que deseas eliminar a este usuario definitivamente?');" 
-                               style="color: #dc3545; text-decoration: none; font-weight: bold;">
-                                🗑️ Eliminar
+                               class="btn-accion btn-eliminar">Eliminar
                             </a>
                             </form>
                         </td>
@@ -59,7 +58,7 @@
     </table>
 
     <br>
-    <a href="index.php?action=index" style="color: #007bff; text-decoration: none; font-weight: bold;">⬅️ Volver al listado de materias</a>
+    <a href="index.php?action=index" class="btn-accion btn-editar" style="padding:0.8rem;margin-left:1.5rem;">⬅️ Volver al listado de materias</a>
 </div>
 
 <?php require __DIR__ . "/../layouts/footer.php"; ?>
