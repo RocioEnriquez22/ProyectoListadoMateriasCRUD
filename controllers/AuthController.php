@@ -93,7 +93,8 @@ class AuthController {
         //validacion de los campos
         if ($firstname === '' || $lastname === '' || $email === '' || $password === '') {
         $error = "Todos los campos son obligatorios.";
-        require __DIR__ . "/../views/auten/registro.php";
+        $modal_error=true; //bandera para activar el modal
+        require __DIR__ . "/../views/auten/login.php";
         return;
     }
 
@@ -102,21 +103,23 @@ class AuthController {
         $usuarioExistente = $this->userModel->findByEmail($email);
 
         if ($usuarioExistente) {
-            $error = "El correo electrónico ya está registrado.";
-            require __DIR__ . "/../views/auten/registro.php";
-            return;
+           $error = "El correo electrónico ya está registrado.";
+           $modal_error=true;
+           require __DIR__ . "/../views/auten/login.php";
+           return;
         }
 
         // Guardar usuario llamando al modelo User (encripta automáticamente la clave)
         $exito = $this->userModel->create($firstname, $lastname, $email, $password, $rol);
 
         if ($exito) {
-            // Redirigir al login con mensaje exitoso
-            header("Location: index.php?action=login");
+        // Redirigir al login con mensaje exitoso
+             header("Location: index.php?action=login&registered=true");
             exit;
         } else {
             $error = "Ocurrió un error al registrar el usuario.";
-            require __DIR__ . "/../views/auten/registro.php";
+            $modal_error=true;
+            require __DIR__ . "/../views/auten/login.php";
         }
     }
 
