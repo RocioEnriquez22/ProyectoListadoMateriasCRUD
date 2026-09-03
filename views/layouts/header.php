@@ -34,7 +34,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 </li>
             <?php endif; ?>
             <li class="nav-item">
-            <a class="nav-link" href="index.php?action=logout">Cerrar Sesion</a>
+            <a class="nav-link cerrar_sesion" href="index.php?action=logout">Cerrar Sesion</a>
             </li>
             
         </ul>
