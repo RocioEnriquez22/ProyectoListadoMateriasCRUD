@@ -9,8 +9,9 @@
 
     <link rel="stylesheet" href="../CSS/login.css">
 </head>
-<body>
+<body class="login-page">
 
+<main class="login-content">
 <div class="login-card">
     <h2>Iniciar Sesión</h2>
 
@@ -39,6 +40,7 @@
     </div>
 </div>
 </div>
+</main>
 <div class="modal" id="registerModal">
     <div class="modal-contenido">
         <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -76,9 +78,6 @@
     </div>
 </div>
 
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 <script src="../JS/modal.js"></script>
 <?php if (isset($modal_error) && $modal_error): ?>
         <script>
@@ -88,5 +87,5 @@
             });
         </script>
     <?php endif; ?>
-</body>
-</html>
+
+<?php require __DIR__ . "/../layouts/footer.php"; ?>
