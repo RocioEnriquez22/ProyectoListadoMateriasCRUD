@@ -4,8 +4,8 @@
     <h2>Administración de Usuarios</h2>
 
     <?php if (isset($_GET['error']) && $_GET['error'] === 'self_role'): ?>
-        <div style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
-            ⚠️ No puedes cambiar tu propio rol mientras tienes la sesión activa.
+        <div class="error-msg">
+            No puedes cambiar tu propio rol.
         </div>
     <?php endif; ?>
 
@@ -32,19 +32,22 @@
                             </strong>
                         </td>
                         <td>
-                            <form action="index.php?action=changeRole" method="POST" style="display: flex; gap: 8px; align-items: center; margin: 0;">
+                            <form action="index.php?action=changeRole" method="POST" >
                                 <input type="hidden" name="user_id" value="<?= $u['id'] ?>">
-                                <select name="rol" style="padding: 4px 8px; border-radius: 4px; border: 1px solid #ccc;">
-                                    <option value="usuario" <?= ($u['rol'] === 'usuario') ? 'selected' : '' ?>>Usuario Común</option>
-                                    <option value="admin" <?= ($u['rol'] === 'admin') ? 'selected' : '' ?>>Administrador</option>
-                                </select>
-                                <button type="submit" class="btn-accion btn-editar" style="border:none">
-                                    Guardar
-                                </button>
-                                <a href="index.php?action=deleteUser&id=<?= $u['id'] ?>" 
-                               onclick="return confirm('¿Seguro que deseas eliminar a este usuario definitivamente?');" 
-                               class="btn-accion btn-eliminar">Eliminar
-                            </a>
+                                <?php if($u['id']!==1):?>    
+                                    <select name="rol" >
+                                        <option value="usuario" <?= ($u['rol'] === 'usuario') ? 'selected' : '' ?>>Usuario Común</option>
+                                        <option value="admin" <?= ($u['rol'] === 'admin') ? 'selected' : '' ?>>Administrador</option>
+                                    </select>
+                                
+                                    <button type="submit" class="btn-accion btn-editar" style="border:none">
+                                        Guardar
+                                    </button>
+                                    <a href="index.php?action=deleteUser&id=<?= $u['id'] ?>" 
+                                    onclick="return confirm('¿Seguro que deseas eliminar a este usuario definitivamente?');" 
+                                    class="btn-accion btn-eliminar">Eliminar
+                                    </a>
+                                <?php endif; ?>
                             </form>
                         </td>
                     </tr>
