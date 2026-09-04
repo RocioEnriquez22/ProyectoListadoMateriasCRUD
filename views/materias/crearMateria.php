@@ -40,5 +40,5 @@
     <a href="index.php?action=index" >⬅️ Volver al listado</a>
 </div>
 
-<script src="../JS/materia-validacion.js"></script>
+<script src="JS/materia-validacion.js"></script>
 <?php require __DIR__ . "/../layouts/footer.php"; ?>
