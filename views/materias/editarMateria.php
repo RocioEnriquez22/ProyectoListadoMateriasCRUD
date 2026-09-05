@@ -3,7 +3,7 @@
 <div class="div-editar-mat">
     <h2>Editar Materia id: <?= htmlspecialchars($materia['idMateria']) ?></h2>
 
-    <form action="index.php?action=update" method="POST">
+    <form id="form-edicion" action="index.php?action=update" method="POST">
         <!-- Campo oculto para enviar el ID de la materia que se va a actualizar -->
         <input type="hidden" name="idMateria" value="<?= htmlspecialchars($materia['idMateria']) ?>">
 
@@ -15,7 +15,7 @@
         <div class="input-form">
             <label for="año" >Año:</label>
             <input type="number" id="año" name="año" value="<?= htmlspecialchars($materia['año']) ?>" required >
-            <small id="error-año" ></small>
+            <small id="error-año" style="display:none;"></small>
         </div>
 
         <div class="input-form">

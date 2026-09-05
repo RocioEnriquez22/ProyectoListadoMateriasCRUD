@@ -1,49 +1,50 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Buscamos cualquier formulario de materia presente en la página
     const formMateria = document.querySelector('form[action*="store"], form[action*="update"]');
+    const inputAño = formMateria?.querySelector('input[name="año"]');
 
-    if (!formMateria) return;
+    if (!formMateria || !inputAño) return;
 
-    const inputAno = document.getElementById('año');
+    const añoActual = new Date().getFullYear();
+    const errorSmall = document.getElementById('error-año');
+    let temporizadorError;
 
-    if (!inputAno) return;
+    inputAño.min = '1900';
+    inputAño.max = String(añoActual);
 
-    // Crear el contenedor para el mensaje de error de manera dinámica debajo del input
-    const errorSmall = document.createElement('small');
+    
+
     errorSmall.style.color = '#dc3545';
-    errorSmall.style.fontWeight = 'bold';
     errorSmall.style.display = 'none';
     errorSmall.style.marginTop = '4px';
-    
-    // Insertar el mensaje debajo del campo Año
-    inputAno.parentNode.appendChild(errorSmall);
 
-    // Escuchar el evento submit del formulario
-    formMateria.addEventListener('submit', function (e) {
-        const valorAno = parseInt(inputAno.value, 10);
+    function validarAño() {
+        const valorAño = Number(inputAño.value);
+        const esValido = Number.isInteger(valorAño) && valorAño >= 1900 && valorAño <= añoActual;
 
-        
-        if (isNaN(valorAno) || valorAno <= 1900) {
-            e.preventDefault(); // Detener el envío del formulario al servidor
-
-            // Mostrar mensaje de error visual
-            errorSmall.textContent = 'Error: El año debe ser mayor a 1900.';
-            errorSmall.style.display = 'block';
-            inputAno.style.borderColor = '#960513e5';
-            inputAno.focus();
+        if (esValido) {
+            clearTimeout(temporizadorError);
+            errorSmall.style.display = 'none';
+            inputAño.style.borderColor = '';
         } else {
-            // Ocultar mensaje si cumple la regla
-            errorSmall.style.display = 'none';
-            inputAno.style.borderColor = '#ccc';
+            errorSmall.textContent = `Error: el año debe estar entre 1900 y ${añoActual}.`;
+            errorSmall.style.display = 'block';
+            inputAño.style.borderColor = '#dc3545';
+
+            clearTimeout(temporizadorError);
+            temporizadorError = setTimeout(function () {
+                errorSmall.style.display = 'none';
+            }, 3000);
+        }
+
+        return esValido;
+    }
+
+    formMateria.addEventListener('submit', function (event) {
+        if (!validarAño()) {
+            event.preventDefault();
+            inputAño.focus();
         }
     });
 
-    // Limpiar el error en tiempo real mientras el usuario escribe
-    inputAno.addEventListener('input', function () {
-        const valorAno = parseInt(inputAno.value, 10);
-        if (!isNaN(valorAno) && valorAno > 2000) {
-            errorSmall.style.display = 'none';
-            inputAno.style.borderColor = '#ccc';
-        }
-    });
+    inputAño.addEventListener('input', validarAño);
 });

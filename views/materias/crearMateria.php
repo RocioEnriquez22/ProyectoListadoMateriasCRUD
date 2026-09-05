@@ -12,6 +12,7 @@
         <div class=input-form>
             <label for="año">Año:</label>
             <input type="number" id="año" name="año" required placeholder="Ej: 2026">
+            <small id="error-año" style="display:none;"></small>
         </div>
 
         <div class=input-form>
